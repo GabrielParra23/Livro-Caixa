@@ -1,7 +1,7 @@
 (function(){
   // ====== CONFIGURE AQUI ======
   const SUPABASE_URL = 'https://wefunpobgkgjkblvmtml.supabase.co';
-  const SUPABASE_ANON_KEY = 'sb_publishable_PCaTc71bwavfiRnhEUEOeQ_97O4YxBy';       // Project Settings > API > anon public
+  const SUPABASE_ANON_KEY = 'sb_publishable_PCaTc71bwavfiRnhEUEOeQ_97O4YxBy';     
   // =============================
 
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -43,7 +43,11 @@
     $('authSubmitBtn').disabled = true;
 
     if(authMode === 'signup'){
-      const {error} = await supabase.auth.signUp({ email, password });
+      const {error} = await supabase.auth.signUp({
+        email,
+        password,
+        options: { emailRedirectTo: 'https://gabrielparra23.github.io/Livro-Caixa/' }
+      });
       if(error){ showAuthError(error.message); }
       else{ $('authNote').textContent = 'Conta criada. Verifique seu e-mail para confirmar, depois faça login.'; $('tabLogin').click(); }
     } else {
